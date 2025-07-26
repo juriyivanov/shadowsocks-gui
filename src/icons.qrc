@@ -23,6 +23,6 @@
         <file alias="actions/tools-report-bug.png">icons/Breeze/actions/tools-report-bug.png</file>
         <file alias="actions/view-list-text.png">icons/Breeze/actions/view-list-text.png</file>
         <file alias="index.theme">icons/Breeze/index.theme</file>
-        <file>icons/shadowsocks-gui.png</file>
+        <file>icons/shadowsocks-qt5.png</file>
     </qresource>
 </RCC>

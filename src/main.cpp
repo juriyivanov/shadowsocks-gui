@@ -28,8 +28,8 @@ void setupApplication(QApplication &a)
 
     QApplication::setFallbackSessionManagementEnabled(false);
 
-    a.setApplicationName(QString("shadowsocks-gui"));
-    a.setApplicationDisplayName(QString("Shadowsocks GUI"));
+    a.setApplicationName(QString("shadowsocks-qt5"));
+    a.setApplicationDisplayName(QString("Shadowsocks-Qt5"));
     a.setApplicationVersion(APP_VERSION);
 
 #ifdef Q_OS_WIN
@@ -44,9 +44,9 @@ void setupApplication(QApplication &a)
     QIcon::setThemeName("Breeze");
 #endif
 
-    QTranslator *ssgt = new QTranslator(&a);
-    ssgt->load(QLocale::system(), "ss-gui", "_", ":/i18n");
-    a.installTranslator(ssgt);
+    QTranslator *ssqt5t = new QTranslator(&a);
+    ssqt5t->load(QLocale::system(), "ss-qt5", "_", ":/i18n");
+    a.installTranslator(ssqt5t);
 }
 
 int main(int argc, char *argv[])
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
 #ifdef Q_OS_WIN
         configFile = a.applicationDirPath() + "/config.ini";
 #else
-        QDir configDir = QDir::homePath() + "/.config/shadowsocks-gui";
+        QDir configDir = QDir::homePath() + "/.config/shadowsocks-qt5";
         configFile = configDir.absolutePath() + "/config.ini";
         if (!configDir.exists()) {
             configDir.mkpath(configDir.absolutePath());
