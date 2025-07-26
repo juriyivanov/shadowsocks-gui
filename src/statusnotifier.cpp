@@ -11,8 +11,8 @@ StatusNotifier::StatusNotifier(MainWindow *w, bool startHiden, QObject *parent) 
     QObject(parent),
     window(w)
 {
-    systray.setIcon(QIcon(":/icons/icons/shadowsocks-qt5.png"));
-    systray.setToolTip(QString("Shadowsocks-Qt5"));
+    systray.setIcon(QIcon(":/icons/icons/shadowsocks-gui.png"));
+    systray.setToolTip(QString("Shadowsocks GUI"));
     connect(&systray, &QSystemTrayIcon::activated, [this](QSystemTrayIcon::ActivationReason r) {
         if (r != QSystemTrayIcon::Context) {
             this->activate();
@@ -43,11 +43,11 @@ void StatusNotifier::showNotification(const QString &msg)
     //Using DBus to send message.
     QDBusMessage method = QDBusMessage::createMethodCall("org.freedesktop.Notifications","/org/freedesktop/Notifications", "org.freedesktop.Notifications", "Notify");
     QVariantList args;
-    args << QCoreApplication::applicationName() << quint32(0) << "shadowsocks-qt5" << "Shadowsocks-Qt5" << msg << QStringList () << QVariantMap() << qint32(-1);
+    args << QCoreApplication::applicationName() << quint32(0) << "shadowsocks-gui" << "Shadowsocks GUI" << msg << QStringList () << QVariantMap() << qint32(-1);
     method.setArguments(args);
     QDBusConnection::sessionBus().asyncCall(method);
 #else
-    systray.showMessage("Shadowsocks-Qt5", msg);
+    systray.showMessage("Shadowsocks GUI", msg);
 #endif
 }
 

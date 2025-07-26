@@ -59,7 +59,7 @@ public:
     //start those connections marked as auto-start
     void startAllAutoStart(const ConnectionTableModel& model);
 
-    //create or delete start up item for shadowsocks-qt5
+    //create or delete start up item for shadowsocks-gui
     void setStartAtLogin();
 
     /* some functions used to communicate with SettingsDialog */

@@ -153,7 +153,7 @@ MainWindow::~MainWindow()
 }
 
 const QUrl MainWindow::issueUrl =
-        QUrl("https://github.com/shadowsocks/shadowsocks-qt5/issues");
+        QUrl("https://github.com/juriyivanov/shadowsocks-gui/issues");
 
 void MainWindow::startAutoStartConnections()
 {
@@ -431,7 +431,7 @@ void MainWindow::checkCurrentIndex(const QModelIndex &_index)
 
 void MainWindow::onAbout()
 {
-    QString text = QString("<h1>Shadowsocks-Qt5</h1><p><b>Version %1</b><br />"
+    QString text = QString("<h1>Shadowsocks GUI</h1><p><b>Version %1</b><br />"
             "Using libQtShadowsocks %2</p>"
             "<p>Copyright © 2014-2018 Symeon Huang "
             "(<a href='https://twitter.com/librehat'>"
@@ -439,7 +439,7 @@ void MainWindow::onAbout()
             "<p>License: <a href='http://www.gnu.org/licenses/lgpl.html'>"
             "GNU Lesser General Public License Version 3</a><br />"
             "Project Hosted at "
-            "<a href='https://github.com/shadowsocks/shadowsocks-qt5'>"
+            "<a href='https://github.com/juriyivanov/shadowsocks-gui'>"
             "GitHub</a></p>")
             .arg(QStringLiteral(APP_VERSION))
             .arg(QSS::Common::version());
