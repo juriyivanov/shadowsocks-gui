@@ -544,7 +544,7 @@ void MainWindow::initSingleInstance()
     if (socket.waitForConnected(500)) {
         instanceRunning = true;
         if (configHelper->isOnlyOneInstance()) {
-            qWarning() << "An instance of ss-qt5 is already running";
+            qWarning() << "An instance of shadowsocks-gui is already running";
         }
         QByteArray username = qgetenv("USER");
         if (username.isEmpty()) {
@@ -588,7 +588,7 @@ void MainWindow::onSingleInstanceConnect()
             // Only show the window if it's the same user
             show();
         } else {
-            qWarning("Another user is trying to run another instance of ss-qt5");
+            qWarning("Another user is trying to run another instance of shadowsocks-gui");
         }
     }
     socket->deleteLater();
