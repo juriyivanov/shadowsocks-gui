@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Shadowsocks-Qt5
-GenericName=Shadowsocks-Qt5
+Name=Shadowsocks GUI
+GenericName=Shadowsocks GUI
 Comment=Shadowsocks GUI client
-Exec=ss-qt5
-Icon=shadowsocks-qt5
+Exec=shadowsocks-gui
+Icon=shadowsocks-gui
 Terminal=false
 Type=Application
 Categories=Network;
