@@ -1,24 +1,20 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.16)
 
-project(Shadowsocks-Qt5
-        VERSION 3.0.1
-        LANGUAGES CXX)
+project(shadowsocks-gui
+    VERSION 3.0.1
+    LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(Qt5Core)
-find_package(Qt5Gui)
-find_package(Qt5Widgets)
-find_package(Qt5Network)
-if(UNIX AND NOT APPLE)
-    find_package(Qt5DBus)
-endif()
+# Find Qt 6 components
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network DBus)
+
 find_package(PkgConfig)
 
 pkg_check_modules(QSS REQUIRED QtShadowsocks>=2.0.0)
