@@ -44,7 +44,7 @@ target_include_directories(${APP_NAME}
     PRIVATE ${ZBAR_INCLUDE_DIRS})
 
 if (UNIX AND NOT APPLE)
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::DBus)
+    target_link_libraries(${APP PRIVATE Qt6::DBus
 endif()
 
 install(TARGETS ${APP_NAME}
