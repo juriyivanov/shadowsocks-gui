@@ -21,7 +21,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="icons.qrc">
-    <normaloff>:/icons/icons/shadowsocks-qt5.png</normaloff>:/icons/icons/shadowsocks-qt5.png</iconset>
+    <normaloff>:/icons/shadowsocks-gui.png</normaloff>:/icons/shadowsocks-gui.png</iconset>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonFollowStyle</enum>

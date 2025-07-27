@@ -89,7 +89,7 @@ void ConfigHelper::importGuiConfigJson(ConnectionTableModel *model, const QStrin
             }
         } else {
             /*
-             * Otherwise, the gui-config is from legacy shadowsocks-gui (v0.x)
+             * Otherwise, the gui-config is from legacy shadowsocks-qt5 (v0.x)
              */
             p.name = json["profile"].toString();
             p.serverPort = json["server_port"].toString().toUShort();
@@ -291,12 +291,12 @@ void ConfigHelper::startAllAutoStart(const ConnectionTableModel& model)
 
 void ConfigHelper::setStartAtLogin()
 {
-    QString applicationName = "Shadowsocks-Qt5";
+    QString applicationName = "Shadowsocks GUI";
     QString applicationFilePath = QDir::toNativeSeparators(QCoreApplication::applicationFilePath());
 #if defined(Q_OS_WIN)
     QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 #elif defined(Q_OS_LINUX)
-    QFile file(QDir::homePath() + "/.config/autostart/shadowsocks-qt5.desktop");
+    QFile file(QDir::homePath() + "/.config/autostart/shadowsocks-gui.desktop");
     QString fileContent(
             "[Desktop Entry]\n"
             "Name=%1\n"
@@ -305,14 +305,14 @@ void ConfigHelper::setStartAtLogin()
             "Terminal=false\n"
             "X-GNOME-Autostart-enabled=true\n");
 #elif defined(Q_OS_MAC)
-    QFile file(QDir::homePath() + "/Library/LaunchAgents/org.shadowsocks.shadowsocks-qt5.launcher.plist");
+    QFile file(QDir::homePath() + "/Library/LaunchAgents/org.shadowsocks.shadowsocks-gui.launcher.plist");
     QString fileContent(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             "<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
             "<plist version=\"1.0\">\n"
             "<dict>\n"
             "  <key>Label</key>\n"
-            "  <string>org.shadowsocks.shadowsocks-qt5.launcher</string>\n"
+            "  <string>org.shadowsocks.shadowsocks-gui.launcher</string>\n"
             "  <key>LimitLoadToSessionType</key>\n"
             "  <string>Aqua</string>\n"
             "  <key>ProgramArguments</key>\n"
