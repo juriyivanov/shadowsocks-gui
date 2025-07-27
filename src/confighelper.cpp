@@ -89,7 +89,7 @@ void ConfigHelper::importGuiConfigJson(ConnectionTableModel *model, const QStrin
             }
         } else {
             /*
-             * Otherwise, the gui-config is from legacy shadowsocks-qt5 (v0.x)
+             * Otherwise, the gui-config is from legacy shadowsocks-gui (v0.x)
              */
             p.name = json["profile"].toString();
             p.serverPort = json["server_port"].toString().toUShort();

@@ -25,7 +25,7 @@ set(SOURCE
     )
 
 if (WIN32)
-    list(APPEND SOURCE ss-qt5.rc)
+    list(APPEND SOURCE ss-gui.rc)
 endif()
 
 add_executable(${APP_NAME} WIN32 ${SOURCE})
