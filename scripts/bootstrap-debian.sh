@@ -28,7 +28,7 @@ $SUDO env DEBIAN_FRONTEND=noninteractive apt-get update
 $SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git ca-certificates build-essential cmake ninja-build pkg-config \
     qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-tools-dev-tools \
-    qtbase5-dev qttools5-dev qttools5-dev-tools \
+    qtbase5-dev qtbase5-dev-tools qttools5-dev qttools5-dev-tools qt5-qmake \
     libqrencode-dev libzbar-dev libbotan-2-dev
 
 info "Cloning QtShadowsocks from ${QSS_REPO} (branch: ${QSS_BRANCH})"
@@ -39,7 +39,8 @@ info "Configuring and building QtShadowsocks"
 cmake -S "${QSS_BUILD_DIR}" -B "${QSS_BUILD_DIR}/build" \
     -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr/local
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DQt5_DIR=/usr/lib/x86_64-linux-gnu/cmake/Qt5
 cmake --build "${QSS_BUILD_DIR}/build" --parallel
 $SUDO cmake --install "${QSS_BUILD_DIR}/build"
 
