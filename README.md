@@ -22,7 +22,8 @@ Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C+
 * i18n with **gettext / Qt Linguist** – contributions welcome!
 
 На чистой Debian-машине эти шаги можно автоматизировать с помощью `scripts/bootstrap-debian.sh`,
-который подтянет системные зависимости, соберёт QtShadowsocks и выполнит сборку проекта:
+который подтянет системные зависимости (включая Qt 5 для сборки QtShadowsocks), соберёт QtShadowsocks
+и выполнит сборку проекта:
 
 ```bash
 $ ./scripts/bootstrap-debian.sh

@@ -28,6 +28,7 @@ $SUDO env DEBIAN_FRONTEND=noninteractive apt-get update
 $SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git ca-certificates build-essential cmake ninja-build pkg-config \
     qt6-base-dev qt6-base-dev-tools qt6-tools-dev qt6-tools-dev-tools \
+    qtbase5-dev qttools5-dev qttools5-dev-tools \
     libqrencode-dev libzbar-dev libbotan-2-dev
 
 info "Cloning QtShadowsocks from ${QSS_REPO} (branch: ${QSS_BRANCH})"
