@@ -17,10 +17,19 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network DBus)
 
 find_package(PkgConfig REQUIRED)
 
-# Prefer the Qt 6 pkg-config name used by recent libQtShadowsocks releases and
-# require it explicitly so a Qt 5 build cannot be pulled in.
-pkg_check_modules(QSS_QT6 REQUIRED QtShadowsocks-qt6>=2.0.0)
-set(_QSS_PREFIX QSS_QT6)
+# Prefer the Qt 6 pkg-config name used by recent libQtShadowsocks releases
+pkg_check_modules(QSS_QT6 QtShadowsocks-qt6>=2.0.0)
+if(QSS_QT6_FOUND)
+    set(_QSS_PREFIX QSS_QT6)
+else()
+    # Fallback to the legacy name but keep the Qt 6 requirement explicit so
+    # a Qt 5 build of the library is rejected early.
+    pkg_check_modules(QSS_QTLEGACY QtShadowsocks>=2.0.0)
+    if(NOT QSS_QTLEGACY_FOUND)
+        message(FATAL_ERROR "libQtShadowsocks (Qt 6 build) was not found. Install a Qt 6 build of the library and ensure its pkg-config file is discoverable.")
+    endif()
+    set(_QSS_PREFIX QSS_QTLEGACY)
+endif()
 
 foreach(_field INCLUDE_DIRS LIBRARIES LIBDIR LIBRARY_DIRS)
     set(QSS_${_field} ${${_QSS_PREFIX}_${_field}})
