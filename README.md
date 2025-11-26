@@ -28,6 +28,14 @@ Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C+
 * Auto‑start on login (optional)
 * i18n with **gettext / Qt Linguist** – contributions welcome!
 
+На чистой Debian-машине эти шаги можно автоматизировать с помощью `scripts/bootstrap-debian.sh`,
+который подтянет системные зависимости (включая qmake/Qt 5 для сборки QtShadowsocks и выставит `Qt5_DIR`),
+соберёт QtShadowsocks и выполнит сборку проекта:
+
+```bash
+$ ./scripts/bootstrap-debian.sh
+```
+
 ---
 
 ## 🛠️ Build instructions
