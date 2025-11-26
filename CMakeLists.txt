@@ -12,30 +12,51 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Find Qt 6 components
-find_package(Qt6 COMPONENTS Core Gui Widgets Network DBus QUIET)
-if(NOT Qt6_FOUND)
-    message(FATAL_ERROR "Qt 6 (Core/Gui/Widgets/Network/DBus) was not found. Install the Qt 6 development files and set Qt6_DIR or CMAKE_PREFIX_PATH if they are not in the default location.")
+set(_qt_components Core Gui Widgets Network)
+if(UNIX AND NOT APPLE)
+    list(APPEND _qt_components DBus)
+endif()
+
+# Prefer Qt 6 but fall back to a Qt 5 toolchain if available.
+find_package(Qt6 COMPONENTS ${_qt_components} QUIET)
+if(Qt6_FOUND)
+    set(QT_PACKAGE_PREFIX Qt6)
+else()
+    find_package(Qt5 COMPONENTS ${_qt_components} QUIET)
+    if(NOT Qt5_FOUND)
+        set(_missing_components "Core/Gui/Widgets/Network")
+        if(UNIX AND NOT APPLE)
+            string(APPEND _missing_components "/DBus")
+        endif()
+        message(FATAL_ERROR "Neither Qt 6 nor Qt 5 (${_missing_components}) was found. Install the matching Qt development files and set Qt6_DIR/Qt5_DIR or CMAKE_PREFIX_PATH if they are not in the default location.")
+    endif()
+    set(QT_PACKAGE_PREFIX Qt5)
 endif()
 
 find_package(PkgConfig REQUIRED)
 
 # Prefer the Qt 6 pkg-config name used by recent libQtShadowsocks releases
-pkg_check_modules(QSS_QT6 QtShadowsocks-qt6>=2.0.0)
-if(QSS_QT6_FOUND)
-    set(_QSS_PREFIX QSS_QT6)
-else()
-    # Fallback to the legacy name but keep the Qt 6 requirement explicit so
-    # a Qt 5 build of the library is rejected early.
-    pkg_check_modules(QSS_QTLEGACY QtShadowsocks>=2.0.0)
-    if(NOT QSS_QTLEGACY_FOUND)
-        message(FATAL_ERROR "libQtShadowsocks (Qt 6 build) was not found. Install a Qt 6 build of the library and ensure its pkg-config file is discoverable.")
+if(QT_PACKAGE_PREFIX STREQUAL "Qt6")
+    pkg_check_modules(QSS_QT QtShadowsocks-qt6>=2.0.0)
+    if(NOT QSS_QT_FOUND)
+        # Fallback to the legacy name but keep the Qt 6 requirement explicit so
+        # a Qt 5 build of the library is rejected early.
+        pkg_check_modules(QSS_QT QtShadowsocks>=2.0.0)
+        if(NOT QSS_QT_FOUND)
+            message(FATAL_ERROR "libQtShadowsocks (Qt 6 build) was not found. Install a Qt 6 build of the library and ensure its pkg-config file is discoverable.")
+        endif()
     endif()
-    set(_QSS_PREFIX QSS_QTLEGACY)
+else()
+    # Qt 5 builds are only used when Qt 6 is unavailable; accept either the qt5
+    # or legacy pkg-config name.
+    pkg_check_modules(QSS_QT QtShadowsocks-qt5 QtShadowsocks)
+    if(NOT QSS_QT_FOUND)
+        message(FATAL_ERROR "libQtShadowsocks (Qt 5 build) was not found. Install a Qt 5 build of the library and ensure its pkg-config file is discoverable.")
+    endif()
 endif()
 
 foreach(_field INCLUDE_DIRS LIBRARIES LIBDIR LIBRARY_DIRS)
-    set(QSS_${_field} ${${_QSS_PREFIX}_${_field}})
+    set(QSS_${_field} ${QSS_QT_${_field}})
 endforeach()
 
 find_library(QSS_LIBRARY_VAR
