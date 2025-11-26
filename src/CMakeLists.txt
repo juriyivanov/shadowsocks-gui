@@ -31,10 +31,10 @@ endif()
 add_executable(${APP_NAME} WIN32 ${SOURCE})
 
 target_link_libraries(${APP_NAME}
-    PUBLIC Qt6::Core
-    PUBLIC Qt6::Gui
-    PUBLIC Qt6::Widgets
-    PUBLIC Qt6::Network
+    PUBLIC ${QT_PACKAGE_PREFIX}::Core
+    PUBLIC ${QT_PACKAGE_PREFIX}::Gui
+    PUBLIC ${QT_PACKAGE_PREFIX}::Widgets
+    PUBLIC ${QT_PACKAGE_PREFIX}::Network
     PRIVATE ${QSS_LIBRARY_VAR}
     PRIVATE ${QRENCODE_LIBRARY_VAR}
     PRIVATE ${ZBAR_LIBRARY_VAR})
@@ -44,7 +44,7 @@ target_include_directories(${APP_NAME}
     PRIVATE ${ZBAR_INCLUDE_DIRS})
 
 if (UNIX AND NOT APPLE)
-    target_link_libraries(${APP_NAME} PRIVATE Qt6::DBus)
+    target_link_libraries(${APP_NAME} PRIVATE ${QT_PACKAGE_PREFIX}::DBus)
 endif()
 
 install(TARGETS ${APP_NAME}

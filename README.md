@@ -1,7 +1,7 @@
 # Shadowsocks GUI (Qt 6)
 
 A **cross‑platform**, actively‑maintained graphical client for the [Shadowsocks](https://shadowsocks.org) proxy.
-Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C++17 (soon C++20), and brings numerous UX, security and build‑system improvements.
+Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C++17 (soon C++20), and brings numerous UX, security and build‑system improvements. A Qt 5 toolchain can still be used if Qt 6 is unavailable, but Qt 6 remains the preferred and better‑tested option.
 
 ---
 
@@ -11,11 +11,7 @@ Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C+
 * Multiple server profiles with tags & search
 | QtShadowsocks |  ≥ 2.0.0        | Provides core controller library (**build against Qt 6; see note below**) |
 
-> **QtShadowsocks note:** the GUI depends on a **Qt 6** build of `libQtShadowsocks` (v2.0.0+).
-> Building the upstream `master` branch will try to find **Qt 5** and fail with errors such as
-> `Qt5::Core not found`. Use a Qt 6–enabled release/branch of the library instead (for example,
-> the `qt6` branch in `shadowsocks/libQtShadowsocks`) and install it before configuring this
-> project.
+> **QtShadowsocks note:** the GUI prefers a **Qt 6** build of `libQtShadowsocks` (v2.0.0+). If you only have Qt 5 installed, the CMake configuration will fall back to a Qt 5 build of the library. To avoid errors such as `Qt5::Core not found`, make sure the Qt version of your installed `libQtShadowsocks` matches the Qt toolchain discovered by CMake (for example, use the `qt6` branch in `shadowsocks/libQtShadowsocks` when building with Qt 6).
 
 * Built‑in QR scanner / screenshot recogniser
 * Latency tester, traffic stats & data‑cap reset reminders
@@ -54,7 +50,9 @@ On Debian/Ubuntu, the Qt 6 development files live in `qt6-base-dev` and the
 pkg-config helpers ship with `qt6-base-dev-tools`. If CMake cannot locate Qt 6
 (e.g. `Qt6Config.cmake` not found), install these packages and, if necessary,
 export `CMAKE_PREFIX_PATH=/usr/lib/qt6/cmake` or point `Qt6_DIR` at the Qt 6
-`lib/cmake/Qt6` directory.
+`lib/cmake/Qt6` directory. When falling back to Qt 5, install `qtbase5-dev`
+and set `Qt5_DIR` or `CMAKE_PREFIX_PATH` accordingly so that CMake can find the
+Qt 5 configuration files.
 
 ```bash
 # Clone
