@@ -15,12 +15,32 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Find Qt 6 components
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network DBus)
 
-find_package(PkgConfig)
+find_package(PkgConfig REQUIRED)
 
-pkg_check_modules(QSS REQUIRED QtShadowsocks>=2.0.0)
+# Prefer the Qt 6 pkg-config name used by recent libQtShadowsocks releases
+pkg_check_modules(QSS_QT6 QtShadowsocks-qt6>=2.0.0)
+if(QSS_QT6_FOUND)
+    set(_QSS_PREFIX QSS_QT6)
+else()
+    # Fallback to the legacy name but keep the Qt 6 requirement explicit so
+    # a Qt 5 build of the library is rejected early.
+    pkg_check_modules(QSS_QTLEGACY QtShadowsocks>=2.0.0)
+    if(NOT QSS_QTLEGACY_FOUND)
+        message(FATAL_ERROR "libQtShadowsocks (Qt 6 build) was not found. Install a Qt 6 build of the library and ensure its pkg-config file is discoverable.")
+    endif()
+    set(_QSS_PREFIX QSS_QTLEGACY)
+endif()
+
+foreach(_field INCLUDE_DIRS LIBRARIES LIBDIR LIBRARY_DIRS)
+    set(QSS_${_field} ${${_QSS_PREFIX}_${_field}})
+endforeach()
+
 find_library(QSS_LIBRARY_VAR
     NAMES ${QSS_LIBRARIES}
     HINTS ${QSS_LIBRARY_DIRS} ${QSS_LIBDIR})
+if(NOT QSS_LIBRARY_VAR)
+    message(FATAL_ERROR "libQtShadowsocks library binary was not found; check that the Qt 6 build is installed and pkg-config paths are set.")
+endif()
 
 pkg_check_modules(QRENCODE REQUIRED libqrencode)
 find_library(QRENCODE_LIBRARY_VAR
