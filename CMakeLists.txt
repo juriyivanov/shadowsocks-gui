@@ -13,7 +13,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Find Qt 6 components
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets Network DBus)
+find_package(Qt6 COMPONENTS Core Gui Widgets Network DBus QUIET)
+if(NOT Qt6_FOUND)
+    message(FATAL_ERROR "Qt 6 (Core/Gui/Widgets/Network/DBus) was not found. Install the Qt 6 development files and set Qt6_DIR or CMAKE_PREFIX_PATH if they are not in the default location.")
+endif()
 
 find_package(PkgConfig REQUIRED)
 
