@@ -9,7 +9,13 @@ Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C+
 
 * Native Qt 6 UI (Wayland & X11, Windows, macOS tested)
 * Multiple server profiles with tags & search
-* One‑click connect / disconnect & smart auto‑connect 
+| QtShadowsocks |  ≥ 2.0.0        | Provides core controller library (**build against Qt 6; ships `QtShadowsocks-qt6.pc`) |
+
+> **QtShadowsocks note:** the GUI depends on a **Qt 6** build of `libQtShadowsocks` (v2.0.0+) that
+> installs a `QtShadowsocks-qt6.pc` file. The upstream `master` branch targets Qt 5 and will not
+> work with this project; use a Qt 6‑enabled release/branch of the library (for example, the `qt6`
+> branch in `shadowsocks/libQtShadowsocks`) and install it before configuring this project.
+
 * Built‑in QR scanner / screenshot recogniser
 * Latency tester, traffic stats & data‑cap reset reminders
 * SOCKS5 **and** HTTP proxy modes
