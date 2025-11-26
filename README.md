@@ -42,6 +42,12 @@ Originally forked from `shadowsocks-qt5`, this project now targets **Qt 6**, C+
 | libqrencode   | any             | QR code generation                       |
 | zbar          | any             | QR code scanning                         |
 
+On Debian/Ubuntu, the Qt 6 development files live in `qt6-base-dev` and the
+pkg-config helpers ship with `qt6-base-dev-tools`. If CMake cannot locate Qt 6
+(e.g. `Qt6Config.cmake` not found), install these packages and, if necessary,
+export `CMAKE_PREFIX_PATH=/usr/lib/qt6/cmake` or point `Qt6_DIR` at the Qt 6
+`lib/cmake/Qt6` directory.
+
 ```bash
 # Clone
 $ git clone https://github.com/juriyivanov/shadowsocks-gui.git
